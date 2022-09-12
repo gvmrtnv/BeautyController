@@ -34,20 +34,20 @@ class CheckViewModel: ObservableObject {
     @Published var showFileAlert = false
     @Published var appError: MyImageError.ErrorType?
     
-    private lazy var complimentPublisher: AnyPublisher<String, Never> = {
-        $generateNewCompliment
-            .flatMap { _ -> AnyPublisher<String, Never>  in
-                NetworkManager.shared.fetchCompliment()
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }()
+    private var bodyIdentifier = BodyIdentifier()
     
     init(){
-        complimentPublisher
+        bodyIdentifier.$compliment
+            .receive(on: DispatchQueue.main)
             .assign(to: &$compliment)
     }
     
+    func generateCompliment() {
+        if let image = processedImage {
+            bodyIdentifier.generateCompliment(image)
+        }
+       
+    }
     
     func loadImage() {
         guard let inputImage = inputImage else { return }

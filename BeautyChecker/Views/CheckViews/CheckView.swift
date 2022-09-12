@@ -44,7 +44,7 @@ struct CheckView: View {
                     .disabled(vm.isChecking)
                     Spacer()
                     Button {
-                        vm.generateNewCompliment.toggle()
+                        vm.generateCompliment()
                         vm.isChecking = true
                         withAnimation(.linear(duration: 1)) {
                             vm.checkAnimation.toggle()

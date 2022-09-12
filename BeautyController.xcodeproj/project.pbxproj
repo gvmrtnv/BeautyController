@@ -31,6 +31,7 @@
 		725FC157281EABC700AA9863 /* RecentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725FC156281EABC700AA9863 /* RecentView.swift */; };
 		725FC15B281EAE8D00AA9863 /* RecentViewsExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725FC15A281EAE8D00AA9863 /* RecentViewsExtra.swift */; };
 		725FC15F281F004A00AA9863 /* BeautygradeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725FC15E281F004A00AA9863 /* BeautygradeCardView.swift */; };
+		72951EEE28CA5DC1002F570A /* BodyIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72951EED28CA5DC1002F570A /* BodyIdentifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		725FC156281EABC700AA9863 /* RecentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentView.swift; sourceTree = "<group>"; };
 		725FC15A281EAE8D00AA9863 /* RecentViewsExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewsExtra.swift; sourceTree = "<group>"; };
 		725FC15E281F004A00AA9863 /* BeautygradeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautygradeCardView.swift; sourceTree = "<group>"; };
+		72951EED28CA5DC1002F570A /* BodyIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyIdentifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				725FC14E281DA77A00AA9863 /* NetworkManager.swift */,
 				725FC140281AFE9A00AA9863 /* Extensions.swift */,
 				725CD3D62827F12C009ADCAD /* NetworkMonitor.swift */,
+				72951EED28CA5DC1002F570A /* BodyIdentifier.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72951EEE28CA5DC1002F570A /* BodyIdentifier.swift in Sources */,
 				725FC12F28147BEA00AA9863 /* ContentView.swift in Sources */,
 				725CD3DA28282970009ADCAD /* ButtonModifier.swift in Sources */,
 				725FC148281D180800AA9863 /* AnimationView.swift in Sources */,
