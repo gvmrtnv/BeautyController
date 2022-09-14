@@ -13,41 +13,30 @@ import SwiftUI
 class BodyIdentifier {
     
     @Published var compliment: String = ""
+    let imagePredictor = ImagePredictor()
+    var image: UIImage?
     
     func generateCompliment(_ image: UIImage) {
-//        guard let url = URL(string: "https://complimentr.com/api") else {return }
-//        let conf = URLSessionConfiguration.default
-//        conf.timeoutIntervalForRequest = 3
-        
-        // Get the CGImage on which to perform requests.
-        guard let cgImage = image.cgImage else { return }
-        
+        DispatchQueue.global().async {
+            self.image = image
+            // Get the CGImage on which to perform requests.
+            guard let cgImage = image.cgImage else { return }
+            
 
-        // Create a new image-request handler.
-        let requestHandler = VNImageRequestHandler(cgImage: cgImage)
+            // Create a new image-request handler.
+            let requestHandler = VNImageRequestHandler(cgImage: cgImage)
 
-        // Create a new request to recognize a human body pose.
-        let request = VNDetectHumanBodyPoseRequest(completionHandler: bodyPoseHandler)
+            // Create a new request to recognize a human body pose.
+            let request = VNDetectHumanBodyPoseRequest(completionHandler: self.bodyPoseHandler)
 
-        do {
-            // Perform the body pose-detection request.
-            try requestHandler.perform([request])
-        } catch {
-            print("Unable to perform the request: \(error).")
+            do {
+                // Perform the body pose-detection request.
+                try requestHandler.perform([request])
+            } catch {
+                print("Unable to perform the request: \(error).")
+            }
         }
-        
-        
-        
-        
-        
-//        return URLSession(configuration: conf).dataTaskPublisher(for: url)
-//            .map(\.data)
-//            .decode(type: Compliment.self, decoder: JSONDecoder())
-//            .map(\.compliment)
-//            .replaceError(with: "Currently I can only say: it's pure beauty")
-//            .eraseToAnyPublisher()
-        
-        
+            
     }
     
     func bodyPoseHandler(request: VNRequest, error: Error?) {
@@ -63,23 +52,6 @@ class BodyIdentifier {
         outerLoop: for observation in observations {
             let recognizedJointGroups = observation.availableJointsGroupNames.shuffled()
           
-            
-//            guard let group = recognizedJointGroups.randomElement() else {
-//                compliment = "You have a beautiful face4"
-//                return
-//            }
-//            guard let jointsOfGroup = try? observation.recognizedPoints(group)
-//            else {
-//                compliment = "You have a beautiful face2"
-//                return
-//            }
-//
-//            guard let joint = jointsOfGroup.randomElement(), joint.value.confidence > 0 else {
-//                compliment = "You have a beautiful face5"
-//                return
-//            }
-    
-            
             for group in recognizedJointGroups {
                 guard let jointsOfGroup = try? observation.recognizedPoints(group).shuffled()
                 else {
@@ -95,78 +67,68 @@ class BodyIdentifier {
                         jointMy = joint
                         break outerLoop
                     }
-                 
-                
                 }
-                
             }
         }
             
-            
-            var groupName = "soul"
-                if let groupMy = groupMy {
-                  
-                    switch groupMy {
-                    case .face:
-                        groupName = "face"
-                    case .leftArm:
-                        groupName = "left arm"
-                    case .rightArm:
-                        groupName = "right arm"
-                    case .leftLeg:
-                        groupName = "left leg"
-                    case .torso:
-                        groupName = "torso"
-                    case .rightLeg:
-                        groupName = "right leg"
-                    default:
-                        break
-                    }
+        
+        var groupName = "soul"
+            if let groupMy = groupMy {
+              
+                switch groupMy {
+                case .face:
+                    groupName = "face"
+                case .leftArm:
+                    groupName = "left arm"
+                case .rightArm:
+                    groupName = "right arm"
+                case .leftLeg:
+                    groupName = "left leg"
+                case .torso:
+                    groupName = "torso"
+                case .rightLeg:
+                    groupName = "right leg"
+                default:
+                    break
                 }
-            
-            var jointName = "inner world"
-                if let jointMy = jointMy {
-                    jointName = jointMy.key.rawValue.rawValue
-                }
-            
-            compliment = "You have  beautiful \(groupName), and especially \(jointName) "
-            
+            }
         
- 
-        
-       
-        
+        var jointName = "inner world"
+            if let jointMy = jointMy {
+                jointName = jointMy.key.rawValue.rawValue
+            }
+        if !(groupName == "soul" && jointName == "inner world") {
+
+            compliment = "You have  beautiful \(groupName), and especially \(jointName)"
+        }
+        else if let image = image{
+            do {
+                try imagePredictor.makePredictions(for: image, completionHandler: imagePredictionHandler)
+            } catch{
+                compliment = "I can't see your picture"
+            }
+            
+        }
         
         
     }
-    
-//    func processObservation(_ observation: VNHumanBodyPoseObservation) {
-//        
-//        // Retrieve all torso points.
-//        guard let recognizedPoints =
-//                try? observation.recognizedPoints(.torso) else { return }
+    private func imagePredictionHandler(_ predictions: [ImagePredictor.Prediction]?) {
+        guard let predictions = predictions else {
+            compliment = "This thing is beautiful"
+            return
+        }
+
+        let prediction = predictions.max { a, b in a.confidencePercentage < b.confidencePercentage
+        }
         
-        // Torso joint names in a clockwise ordering.
-//        let torsoJointNames: [VNHumanBodyPoseObservation.JointName] = [
-//            .neck,
-//            .rightShoulder,
-//            .rightHip,
-//            .root,
-//            .leftHip,
-//            .leftShoulder
-//        ]
-//
-//        // Retrieve the CGPoints containing the normalized X and Y coordinates.
-//        let imagePoints: [CGPoint] = torsoJointNames.compactMap {
-//            guard let point = recognizedPoints[$0], point.confidence > 0 else { return nil }
-//
-//            // Translate the point from normalized-coordinates to image coordinates.
-//            return VNImagePointForNormalizedPoint(point.location,
-//                                                  Int(imageSize.width),
-//                                                  Int(imageSize.height))
-//        }
-//
-//        // Draw the points onscreen.
-//        draw(points: imagePoints)
-//    }
+        guard var name = prediction?.classification else {return}
+
+        // For classifications with more than one name, keep the one before the first comma.
+        if let firstComma = name.firstIndex(of: ",") {
+            name = String(name.prefix(upTo: firstComma))
+        }
+        
+        compliment = "You have a great \(name)"
+
+    }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		721213E828D229BB0062EE8F /* ImagePredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721213E728D229BB0062EE8F /* ImagePredictor.swift */; };
+		721213EA28D22C530062EE8F /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 721213E928D22C530062EE8F /* MobileNet.mlmodel */; };
 		725CD3B42826AE83009ADCAD /* BeautyCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725CD3B32826AE83009ADCAD /* BeautyCheckerTests.swift */; };
 		725CD3D02826CF92009ADCAD /* BeautyCheckerNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725CD3CF2826CF92009ADCAD /* BeautyCheckerNetworkTests.swift */; };
 		725CD3D72827F12C009ADCAD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725CD3D62827F12C009ADCAD /* NetworkMonitor.swift */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		721213E728D229BB0062EE8F /* ImagePredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePredictor.swift; sourceTree = "<group>"; };
+		721213E928D22C530062EE8F /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = MobileNet.mlmodel; path = ML/MobileNet.mlmodel; sourceTree = SOURCE_ROOT; };
 		725CD3B12826AE83009ADCAD /* BeautyControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeautyControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725CD3B32826AE83009ADCAD /* BeautyCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyCheckerTests.swift; sourceTree = "<group>"; };
 		725CD3C02826BA61009ADCAD /* BeautyCheckerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyCheckerUITests.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 		725FC144281C66F300AA9863 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				721213E928D22C530062EE8F /* MobileNet.mlmodel */,
 				725FC152281EA10300AA9863 /* MyImage.swift */,
 				725FC154281EA1BD00AA9863 /* MyImageError.swift */,
 			);
@@ -228,6 +233,7 @@
 				725FC140281AFE9A00AA9863 /* Extensions.swift */,
 				725CD3D62827F12C009ADCAD /* NetworkMonitor.swift */,
 				72951EED28CA5DC1002F570A /* BodyIdentifier.swift */,
+				721213E728D229BB0062EE8F /* ImagePredictor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				725FC12F28147BEA00AA9863 /* ContentView.swift in Sources */,
 				725CD3DA28282970009ADCAD /* ButtonModifier.swift in Sources */,
 				725FC148281D180800AA9863 /* AnimationView.swift in Sources */,
+				721213E828D229BB0062EE8F /* ImagePredictor.swift in Sources */,
 				725FC141281AFE9A00AA9863 /* Extensions.swift in Sources */,
 				725FC14C281DA61000AA9863 /* CheckViewModel.swift in Sources */,
 				725FC15B281EAE8D00AA9863 /* RecentViewsExtra.swift in Sources */,
@@ -417,6 +424,7 @@
 				725FC155281EA1BD00AA9863 /* MyImageError.swift in Sources */,
 				725FC157281EABC700AA9863 /* RecentView.swift in Sources */,
 				725FC15F281F004A00AA9863 /* BeautygradeCardView.swift in Sources */,
+				721213EA28D22C530062EE8F /* MobileNet.mlmodel in Sources */,
 				725FC13F281A514E00AA9863 /* CheckView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
