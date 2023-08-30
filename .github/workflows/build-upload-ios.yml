@@ -16,9 +16,9 @@ jobs:
          bundler-cache: true
  
      - name: Decode signing certificate into a file
-        env:
+       env:
          CERTIFICATE_BASE64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
-        run: |
+       run: |
          echo $CERTIFICATE_BASE64 | base64 --decode > signing-cert.p12
     
      - name: Build & upload iOS binary
