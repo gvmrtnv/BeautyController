@@ -35,7 +35,7 @@ lane :fetch_and_increment_build_number do
    app_identifier: app_identifier
  )
  increment_build_number(
-   build_number: (latest_build_number + 1),
+   build_number: (latest_build_number + 2),
  )
 end
 
