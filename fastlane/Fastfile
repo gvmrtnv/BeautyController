@@ -70,7 +70,7 @@ desc "Installs signing certificate in the keychain and downloads provisioning pr
    sigh(
      adhoc: options[:adhoc],
      api_key: api_key,
-     readonly: true
+     readonly: false
    )
  end
 
