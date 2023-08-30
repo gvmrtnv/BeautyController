@@ -94,7 +94,7 @@ lane :build_release do |options|
 
  # build the app
  gym(
-   scheme: "example-scheme", # replace with name of your project’s scheme
+   scheme: "BeautyChecker", # replace with name of your project’s scheme
    output_name: output_name,
    configuration: "Release",
    export_options: {
